@@ -1,47 +1,46 @@
-import React, { useEffect, useState } from "react";
+"use client";
 import Image from "next/image";
-import darkMode from "../../public/assets/darkMode.svg";
 import circleFill from "../../public/assets/circleFill.svg";
-// import priority from "../../public/assets/priority.svg";
-import axios from "axios";
+import Api from "./api";
 
-interface User {
-  id: string;
-  name: string;
-  available: boolean;
-}
+// interface User {
+//   id: string;
+//   name: string;
+//   available: boolean;
+// }
 
-interface Ticket {
-  id: string;
-  title: string;
-  tag: string[];
-  userId: string;
-  status: string;
-  priority: number;
-}
+// interface Ticket {
+//   id: string;
+//   title: string;
+//   tag: string[];
+//   userId: string;
+//   status: string;
+//   priority: number;
+// }
 
+// export default function Card() {
+//   const [data, setData] = useState<{ tickets: Ticket[]; users: User[] }>({
+//     tickets: [],
+//     users: [],
+//   });
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get(
+//           "https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers"
+//         );
+//         setData(response.data);
+//         console.log(response.data);
+//       } catch (error) {
+//         console.error("Error fetching data:", error);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
 export default function Card() {
-  const [data, setData] = useState<{ tickets: Ticket[]; users: User[] }>({
-    tickets: [],
-    users: [],
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers"
-        );
-        setData(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  const data = Api();
   return (
     <>
       {data.tickets.map((ticket) => (
@@ -70,7 +69,7 @@ export default function Card() {
                       )}
                     </div>
                   </div>
-                )
+                ),
             )}
           </div>
           <div className="flex flex-row justify-center items-center grow px-5 ">
