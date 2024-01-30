@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import darkMode from "../../public/assets/darkMode.svg";
 import circleFill from "../../public/assets/circleFill.svg";
-import priority from "../../public/assets/priority.svg";
+// import priority from "../../public/assets/priority.svg";
 import axios from "axios";
 
 interface User {
@@ -17,6 +17,7 @@ interface Ticket {
   tag: string[];
   userId: string;
   status: string;
+  priority: number;
 }
 
 export default function Card() {
@@ -72,14 +73,23 @@ export default function Card() {
                 )
             )}
           </div>
-
           <div className="flex flex-row justify-center items-center grow px-5 ">
-            <Image className="flex size-4" alt="" src={darkMode} />
+            <Image
+              className="flex size-4"
+              alt=""
+              src={`/assets/status/${ticket.status}.svg`}
+              width={16}
+              height={16}
+            />
             <span className="flex grow px-1 mx-3">{ticket.title}</span>
           </div>
-
           <div className="flex  flex-row px-5 py-4 dark:bg-gray-700/50 dark:text-gray-400">
-            <Image src={priority} alt="priority" className="" />
+            <Image
+              src={`/assets/priority/${ticket.priority}.svg`}
+              alt="priority"
+              width={16}
+              height={16}
+            />
             <div className="flex border rounded-md px-1 mx-3 items-center">
               <Image
                 className="flex size-3 mr-1 items fill-gray-600"
