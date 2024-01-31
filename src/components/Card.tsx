@@ -58,7 +58,7 @@ export default function Card() {
                   {user.name[0]}
                 </div>
               </div>
-              <div >
+              <div>
                 {user.available?(<div className="w-10 h-10 bg-blue-500 rounded-full"/>):(<div className="w-10 h-10 bg-red-500 rounded-full"/>)}
               </div>
             </div>)}
