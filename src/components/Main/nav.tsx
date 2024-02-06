@@ -2,20 +2,26 @@ import Image from "next/image";
 import plus from "../../../public/assets/plus.svg";
 import dots from "../../../public/assets/dots.svg";
 import Api from "../api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store.ts";
 
 interface Navbar {
   navTitle: string;
+
   navCount: number;
 }
 
 export default function Nav() {
+  const { grouping, ordering } = useSelector((state: RootState) => state.nav);
   const ticketCounts = {};
   const data = Api();
+
   return (
     <>
       {data.users.map((user) => (
         <div className="flex flex-row justify-between py-4" key={user.id}>
           {/* Left Section */}
+          <span>{grouping}</span>
           <div className="flex items-center justify-between w-full">
             <div className="flex flex-row">
               <Image className="flex mx-2" alt="" src={user.priority} />

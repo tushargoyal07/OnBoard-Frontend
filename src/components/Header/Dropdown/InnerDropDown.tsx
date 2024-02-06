@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { setGrouping, setOrdering } from "../../../redux/slices/navSlice";
 
-interface InnerDropdownProps {
-  selectGrouping: (value: string) => void;
-  selectOrdering: (value: string) => void;
-}
 export default function InnerDropdown() {
-  const [grouping, setGrouping] = useState<string>("");
-  const [ordering, setOrdering] = useState<string>("");
+  const dispatch = useDispatch();
+  const { grouping, ordering } = useSelector((state: RootState) => state.nav);
 
   const handleGrouping = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setGrouping(e.target.value);
-    // selectGrouping(e.target.value);
+    dispatch(setGrouping(e.target.value));
   };
+
   const handleOrdering = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setOrdering(e.target.value);
-    // selectOrdering(e.target.value);
+    dispatch(setOrdering(e.target.value));
   };
+
   return (
     <div className="mt-3 flex flex-col gap-6 px-6 py-5 bg-white rounded border border-gray-100 shadow">
       <div className="flex flex-row justify-between gap-24">
@@ -25,9 +24,9 @@ export default function InnerDropdown() {
           onChange={handleGrouping}
           className="border border-gray-200 rounded-md text-lg px-2"
         >
-          <option value="groupOption1">Status</option>
-          <option value="groupOption1">User</option>
-          <option value="groupOption2">Priority</option>
+          <option value="Status">Status</option>
+          <option value="User">User</option>
+          <option value="Priority">Priority</option>
         </select>
       </div>
       <div className="flex flex-row justify-between gap-24">
@@ -37,8 +36,8 @@ export default function InnerDropdown() {
           value={ordering}
           onChange={handleOrdering}
         >
-          <option value="groupOption1">Title</option>
-          <option value="groupOption2">Priority</option>
+          <option value="Title">Title</option>
+          <option value="Priority">Priority</option>
         </select>
       </div>
     </div>
