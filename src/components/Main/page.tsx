@@ -2,16 +2,16 @@
 import Nav from "./nav";
 import Card from "../Card";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store.ts";
+import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import Api from "../api";
 
 const statusData = [
-  { id: 1, name: "Backlog" },
-  { id: 2, name: "Todo" },
-  { id: 3, name: "In progress" },
-  { id: 4, name: "Done" },
-  { id: 5, name: "Cancelled" },
+  { name: "Backlog" },
+  { name: "Todo" },
+  { name: "In progress" },
+  { name: "Done" },
+  { name: "Cancelled" },
 ];
 
 const priorityData = [
@@ -27,6 +27,7 @@ export default function Page() {
   const { grouping, ordering } = useSelector((state: RootState) => state.nav);
   const data = Api();
 
+  console.log(data);
   useEffect(() => {
     if (grouping === "Status") {
       setFilterType(statusData);
@@ -44,6 +45,10 @@ export default function Page() {
     }else if(grouping === 'Priority')
   };
   */
+  const findUser = (ticketUserId: any) => {
+    return data.users.find((user) => user.id === ticketUserId);
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <nav className="">
@@ -54,7 +59,16 @@ export default function Page() {
               {/* {data.tickets.map(
                 handleCards
               )} */}
-              <Card />
+              <div className="">
+                {data.tickets.map(
+                  (ticket) =>
+                    (filter.name === ticket.status ||
+                      filter.id === ticket.priority ||
+                      filter.id === ticket.userId) && (
+                      <Card key={ticket.id} ticketProp={ticket} userProp={findUser(ticket.userId)} />
+                    ),
+                )}
+              </div>
             </div>
           ))}
         </div>
