@@ -8,7 +8,10 @@ export default function OuterDropDown() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !((dropdownRef.current as HTMLElement).contains(event.target as Node))) {
+      if (
+        dropdownRef.current &&
+        !(dropdownRef.current as HTMLElement).contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };

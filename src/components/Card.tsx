@@ -2,8 +2,17 @@
 import Image from "next/image";
 import circleFill from "../../public/assets/circleFill.svg";
 import Api from "./api";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
-export default function Card({ ticketProp, userProp }: { ticketProp: any, userProp: any }) {
+export default function Card({
+  ticketProp,
+  userProp,
+}: {
+  ticketProp: any;
+  userProp: any;
+}) {
+  const { grouping, ordering } = useSelector((state: RootState) => state.nav);
   const data = Api();
   return (
     <>
@@ -12,29 +21,34 @@ export default function Card({ ticketProp, userProp }: { ticketProp: any, userPr
           <div className="">
             <span className="flex text-sm text-gray-500">{ticketProp.id}</span>
           </div>
-          <div className="relative -my-4">
-            <div className=" inline-flex items-center justify-center space-x-2">
-              <div className="inline-flex size-8 items-center justify-center rounded-full bg-gray-100 text-sm text-gray-500 dark:bg-gray-700 dark:text-gray-500">
-                {userProp.name[0]}
-                
+          {grouping !== "User" && (
+            <div className="relative -my-4">
+              <div className=" inline-flex items-center justify-center space-x-2">
+                <div className="inline-flex size-8 items-center justify-center rounded-full bg-gray-100 text-sm text-gray-500 dark:bg-gray-700 dark:text-gray-500">
+                  {userProp.name[0]}
+                </div>
+              </div>
+              <div className="absolute right-1 -translate-y-2">
+                {userProp.available ? (
+                  <div className="w-2 h-2 bg-green-500 rounded-full" />
+                ) : (
+                  <div className="w-2 h-2 bg-red-500 rounded-full" />
+                )}
               </div>
             </div>
-            <div className="absolute right-1 -translate-y-2">
-              {userProp.available
-              ?<div className="w-2 h-2 bg-green-500 rounded-full" />:
-              <div className="w-2 h-2 bg-red-500 rounded-full" />}
-            </div>
-          </div>
+          )}
         </div>
         <div className="flex flex-row justify-center items-center grow px-5">
-          <Image
-            className="flex size-4"
-            alt=""
-            src={`/assets/status/${ticketProp.status}.svg`}
-            width={16}
-            height={16}
-          />
-          <span className="flex grow px-1 mx-3">{ticketProp.title}</span>
+          {grouping !== "Status" && (
+            <Image
+              className="flex size-4"
+              alt=""
+              src={`/assets/status/${ticketProp.status}.svg`}
+              width={16}
+              height={16}
+            />
+          )}
+          <p className="px-1 mx-3 line-clamp-2">{ticketProp.title}</p>
         </div>
         <div className="flex flex-row px-5 py-4 dark:bg-gray-700/50 dark:text-gray-400">
           <Image

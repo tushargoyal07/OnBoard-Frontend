@@ -26,8 +26,7 @@ export default function Page() {
   const [filterType, setFilterType] = useState<any[]>(statusData);
   const { grouping, ordering } = useSelector((state: RootState) => state.nav);
   const data = Api();
-
-  console.log(data);
+  
   useEffect(() => {
     if (grouping === "Status") {
       setFilterType(statusData);
@@ -38,13 +37,6 @@ export default function Page() {
     }
   }, [grouping, ordering, data.users]);
 
-  /*
-  const handleCards = () => {
-    if (grouping === 'User') {
-      return data.tickets.userId === data.users.id
-    }else if(grouping === 'Priority')
-  };
-  */
   const findUser = (ticketUserId: any) => {
     return data.users.find((user) => user.id === ticketUserId);
   };
@@ -54,18 +46,19 @@ export default function Page() {
       <nav className="">
         <div className="grid grid-cols-5">
           {filterType.map((filter) => (
-            <div key={filter.id} className="" >
+            <div key={filter.id} className="">
               <Nav title={filter.name} id={filter.id} />
-              {/* {data.tickets.map(
-                handleCards
-              )} */}
               <div className="">
                 {data.tickets.map(
                   (ticket) =>
                     (filter.name === ticket.status ||
                       filter.id === ticket.priority ||
                       filter.id === ticket.userId) && (
-                      <Card key={ticket.id} ticketProp={ticket} userProp={findUser(ticket.userId)} />
+                      <Card
+                        key={ticket.id}
+                        ticketProp={ticket}
+                        userProp={findUser(ticket.userId)}
+                      />
                     ),
                 )}
               </div>
