@@ -26,7 +26,7 @@ export default function Page() {
   const [filterType, setFilterType] = useState<any[]>(statusData);
   const { grouping, ordering } = useSelector((state: RootState) => state.nav);
   const data = Api();
-  
+
   useEffect(() => {
     if (grouping === "Status") {
       setFilterType(statusData);
