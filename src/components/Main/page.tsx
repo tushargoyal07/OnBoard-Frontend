@@ -54,7 +54,7 @@ export default function Page() {
       <nav className="">
         <div className="grid grid-cols-5">
           {filterType.map((filter) => (
-            <div className="" key={filter.id}>
+            <div key={filter.id} className="" >
               <Nav title={filter.name} id={filter.id} />
               {/* {data.tickets.map(
                 handleCards
