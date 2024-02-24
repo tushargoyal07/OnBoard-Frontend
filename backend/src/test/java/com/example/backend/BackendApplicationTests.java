@@ -1,10 +1,10 @@
-package com.onboard.onboardbackend;
+package com.example.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OnboardBackendApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
