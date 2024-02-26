@@ -44,7 +44,7 @@ export default function Page() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <nav className="">
-        <div className="grid grid-cols-5">
+        <div className="grid sm:grid-cols-5">
           {filterType.map((filter) => (
             <div key={filter.id} className="">
               <Nav title={filter.name} id={filter.id} />
