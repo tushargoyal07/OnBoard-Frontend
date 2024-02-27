@@ -3,27 +3,13 @@ import plus from "../../../public/assets/plus.svg";
 import dots from "../../../public/assets/dots.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
-const statusData = [
-  { name: "Backlog" },
-  { name: "Todo" },
-  { name: "In progress" },
-  { name: "Done" },
-  { name: "Cancelled" },
-];
-
-const priorityData = [
-  { id: 0, name: "No Priority" },
-  { id: 1, name: "Low" },
-  { id: 2, name: "Medium" },
-  { id: 3, name: "High" },
-  { id: 4, name: "Urgent" },
-];
 
 export default function Nav({ title, id }: { title: string; id: number }) {
   const { grouping, ordering } = useSelector((state: RootState) => state.nav);
   const [color, setColor] = useState<any>();
+  const [navImage,setNavImage] = useState( `/assets/status/${title}.svg`)
 
   useEffect(() => {
     const getRandomColor = () => {
@@ -32,6 +18,16 @@ export default function Nav({ title, id }: { title: string; id: number }) {
     };
     setColor(getRandomColor());
   }, []);
+
+  useEffect(() => {
+    if (grouping === "Status") {
+      setNavImage(`/assets/status/${title}.svg`);
+    } else if (grouping === "Priority") {
+      setNavImage(`/assets/priority/${id}.svg`);
+    } else {
+      return; // Return void if grouping is neither "Status" nor "Priority"
+    }
+  }, [grouping]);
 
   return (
     <>
@@ -50,15 +46,15 @@ export default function Nav({ title, id }: { title: string; id: number }) {
                 className="flex mx-2"
                 alt=""
                 src={
-                  grouping === "Status"
-                    ? `/assets/status/${title}.svg`
-                    : `/assets/priority/${id}.svg`
+                  // grouping === "Status"
+                  //   ? `/assets/status/${title}.svg`
+                  //   : `/assets/priority/${id}.svg`
+                  navImage
                 }
                 width={16}
                 height={16}
               />
             )}
-
             <span className="flex text-lg font-normal px-1">{title}</span>
           </div>
           <div className="flex flex-row">
