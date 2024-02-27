@@ -3,7 +3,7 @@ import plus from "../../../public/assets/plus.svg";
 import dots from "../../../public/assets/dots.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function Nav({ title, id }: { title: string; id: number }) {
