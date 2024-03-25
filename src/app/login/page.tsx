@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const LoginPage: React.FC = () => {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -72,6 +72,4 @@ const LoginPage: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default LoginPage;
+}
