@@ -1,6 +1,6 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-// import { redirect } from "next/navigation";
 
 export default function Signup() {
   const [formData, setFormData] = useState<{
@@ -9,6 +9,8 @@ export default function Signup() {
     email?: string;
     password?: string;
   }>({ firstname: "", lastname: "", email: "", password: "" });
+
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -37,8 +39,7 @@ export default function Signup() {
       } else {
         console.log("Sign up failed");
       }
-
-      // redirect("/login");
+      router.push("/login");
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +92,7 @@ export default function Signup() {
       </div>
       <div className="flex gap-4 self-center">
         <p>Alerady have an account ?</p>
-        <button>Sign In</button>
+        <button onClick={() => router.push("/login")}>Sign In</button>
       </div>
     </div>
   );

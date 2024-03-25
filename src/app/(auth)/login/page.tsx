@@ -1,9 +1,12 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -31,11 +34,11 @@ export default function LoginPage() {
       );
       if (res.ok) {
         const data = await res.text();
-        console.log(data); // This will log "Login Successful" as plain text
-        document.cookie = 'access_token = ${data}; path=/; SameSite=None; Secure';
+        console.log(data);
       } else {
         console.log("Login failed");
       }
+      router.push("/");
     } catch (err) {
       console.log(err);
     }
@@ -70,6 +73,11 @@ export default function LoginPage() {
           Login
         </button>
       </form>
+
+      <div className="">
+        <p>Don&apos;t have an account ?</p>
+        <button onClick={() => router.push("/signup")}>Sign Up</button>
+      </div>
     </div>
   );
 }
