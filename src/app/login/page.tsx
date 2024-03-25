@@ -26,11 +26,13 @@ const LoginPage: React.FC = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, password }),
+          credentials: "include",
         }
       );
       if (res.ok) {
         const data = await res.text();
         console.log(data); // This will log "Login Successful" as plain text
+        document.cookie = 'access_token = ${data}; path=/; SameSite=None; Secure';
       } else {
         console.log("Login failed");
       }
