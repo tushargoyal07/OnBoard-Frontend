@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 export default function Signup() {
   const [formData, setFormData] = useState<{
-    firstName?: string;
-    lastName?: string;
+    firstname?: string;
+    lastname?: string;
     email?: string;
     password?: string;
-  }>({ firstName: "", lastName: "", email: "", password: "" });
+  }>({ firstname: "", lastname: "", email: "", password: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -31,9 +31,14 @@ export default function Signup() {
           body: JSON.stringify(formData),
         }
       );
-      const data = await res.json();
-      console.log(data);
-      redirect("/login");
+      if (res.ok) {
+        const data = await res.text();
+        console.log(data);
+      } else {
+        console.log("Sign up failed");
+      }
+
+      // redirect("/login");
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +52,7 @@ export default function Signup() {
           <label>First Name</label>
           <input
             type="text"
-            id="firstName"
+            id="firstname"
             className="w-full p-2 border border-gray-300"
             placeholder="Enter Your First Name"
             onChange={handleChange}
@@ -55,7 +60,7 @@ export default function Signup() {
           <label>Last Name</label>
           <input
             type="text"
-            id="lastName"
+            id="lastname"
             placeholder="Enter your last name"
             className="w-full p-2 border border-gray-300"
             onChange={handleChange}
