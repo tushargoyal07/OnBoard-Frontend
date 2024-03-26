@@ -33,12 +33,18 @@ export default function LoginPage() {
         }
       );
       if (res.ok) {
-        const data = await res.text();
-        console.log(data);
+        const token = await res.text(); // Extract token from response body
+        console.log("Token:", token);
+
+        // Set token in cookie if needed
+        document.cookie = `access_token=${token}; Max-Age=86400; path=/`;
+        console.log("Login successful");
+        alert("Login successful");
+        router.push("/");
       } else {
+        alert("Login failed");
         console.log("Login failed");
       }
-      router.push("/");
     } catch (err) {
       console.log(err);
     }
