@@ -22,6 +22,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.2",
+    "kanban_board": "file:",
     "next": "14.0.4",
     "prettier": "^3.2.1",
     "react": "^18",
